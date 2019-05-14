@@ -83,6 +83,7 @@ namespace EPPlusSample
                 excelPackage.Dispose();
             excelPackage = new ExcelPackage();
             excelPackage.Workbook.Worksheets.Add("MySheet");
+            Text = "Unsaved";
             
         }
 
@@ -139,6 +140,13 @@ namespace EPPlusSample
 
                 frmMainSheet.ActiveForm.Text = openFileDialog.FileName;
                 var ws = excelPackage.Workbook.Worksheets[1];
+
+                //Possibly new excel file Empty!
+                if(ws.Dimension == null)
+                {
+                    Text += " First Sheet is Blank, Possibly new excel file!";
+                    return;
+                }
 
                 int iColCnt = ws.Dimension.End.Column;
                 int iRowCnt = ws.Dimension.End.Row;
